@@ -19,6 +19,8 @@ public class Main {
 
         System.out.println(getCurrentlyInOffice(peopleStr));
 
+        System.out.println("-".repeat(150));
+
         /*
         Предположим, что дан список Book {String title, List<Author> authors} ,
         Author – класс {String fName, String lName} Необходимо сформировать map<Author, List<Book>>,  где ключ - автор,
@@ -28,8 +30,6 @@ public class Main {
 
 
         List<Book> books = new ArrayList<>();
-        Author author1 = new Author("Christopher", "Paolini");
-
 
         books.add(new Book("Eragon1 ", new ArrayList<>(List.of(new Author("Christopher", "Paolini")))));
         books.add(new Book("Eragon2 ", new ArrayList<>(List.of(new Author("Christopher", "Paolini")))));
@@ -39,15 +39,7 @@ public class Main {
         System.out.println(books);
 
 
-
-        Map<Author,List<Book>> mapAuthor = new HashMap<>();
-
-        for (Book book : books){
-            for (Author author : book.getAuthorList()){
-                mapAuthor.computeIfAbsent(author, list -> new ArrayList<>()).add(book);
-            }
-        }
-        System.out.println(mapAuthor);
+        System.out.println(sortByAuthor(books));
     }
     public static List<Map.Entry<String, String>> getCurrentlyInOffice(List<String> peopleStr){
         Map<String, String> map = new HashMap<>();
@@ -67,5 +59,15 @@ public class Main {
             }
         }
         return currentlyInOffice;
+    }
+    public static Map<Author,List<Book>> sortByAuthor(List<Book> books){
+        Map<Author,List<Book>> mapAuthor = new HashMap<>();
+
+        for (Book book : books){
+            for (Author author : book.getAuthorList()){
+                mapAuthor.computeIfAbsent(author, list -> new ArrayList<>()).add(book);
+            }
+        }
+        return mapAuthor;
     }
 }
